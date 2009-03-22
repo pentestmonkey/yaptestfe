@@ -1,0 +1,43 @@
+<% @page_title="Host Information for #{@host.ip_address} in area #{@host.test_area_name}" %>
+<% @host_menu=1 %>
+<% @select_hostinfo=1 %>
+<% @table = @host_info %>
+<% @action = "showhostinfo" %>
+<% @cont = "hosts" %>
+<% @url_params = {} %>
+
+<%= render :partial => 'layouts/page_count' %>
+
+<table>
+<thead>
+  <tr>
+    <th scope="col"><%= sort_link("Key Name", "key") %>
+      <%= filterx_icon("Remove filter on #{@url_params[:key_v]}", @url_params[:key_v], :key_v, {:controller => @cont}) %>
+    </th>
+
+    <th scope="col"><%= sort_link("Value", "value") %>
+      <%= filterx_icon("Remove filter on #{@url_params[:value_v]}", @url_params[:value_v], :value_v, {:controller => @cont}) %>
+    </th>
+  </tr>
+</thead>
+
+<tbody>
+<%
+odd_or_even = 0
+if @host_info.nil? then
+%>
+No ports found
+<% else
+	for host_info in @host_info
+	    odd_or_even = 1 - odd_or_even
+	%>
+	  <tr class="odd<%=h odd_or_even %>">
+	    <td><%=link_to host_info.key, {:controller => 'host_infos', :key_v => host_info.key }, {'onmouseover' => "Tip('Show hosts with key #{host_info.key}')", 'onmouseout' => "UnTip()"} %></td>
+	    <td><%=link_to yt_truncate(host_info.value), {:controller => 'host_infos', :value_v => host_info.value }, {'onmouseover' => "Tip('Show hosts with value #{host_info.value}')", 'onmouseout' => "UnTip()"} %></td>
+	  </tr>
+	<% end %>
+<% end %>
+</tbody>
+</table>
+
+<%= render :partial => 'layouts/page_count' %>

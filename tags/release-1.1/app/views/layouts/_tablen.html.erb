@@ -1,0 +1,34 @@
+<% if @rendering_table == 1 %>
+
+
+<table border=0 class="baretab">
+  <tr>
+    <td width=90>
+    </td>
+    <td width=110>
+    </td>
+    <td>
+	<FORM METHOD=POST onChange="return dropdown(this.gourl)">
+	Showing
+	<SELECT NAME="gourl" STYLE="background-color: white; border: 1px solid #ccc">
+	<OPTION <% if session[:tablen].to_i == 10 %>SELECTED<% end %> VALUE="/tablen/set/10">10
+	<OPTION <% if session[:tablen].to_i == 20 %>SELECTED<% end %> VALUE="/tablen/set/20">20
+	<OPTION <% if session[:tablen].to_i == 50 %>SELECTED<% end %> VALUE="/tablen/set/50">50
+	<OPTION <% if session[:tablen].to_i == 100 %>SELECTED<% end %> VALUE="/tablen/set/100">100
+	<OPTION <% if session[:tablen].to_i == 1000 %>SELECTED<% end %> VALUE="/tablen/set/1000">1000
+	</SELECT>
+        records per page
+	</FORM>
+    </td>
+    <td width=40>
+    </td>
+    <td width=80>
+    </td>
+    <td width=80>
+    </td>
+  </tr>
+</table>
+
+
+
+<% end %>

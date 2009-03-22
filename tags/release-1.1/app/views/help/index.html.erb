@@ -1,0 +1,52 @@
+<% # @page_title="Hosts" %>
+<% @mselect_help=1 %>
+<% @action = "index" %>
+<% @cont = "help" %>
+
+<div id="help">
+<h1>FAQs</h1>
+
+<h2>What does YaptestFE do?</h2>
+
+The <a href="http://pentestmonkey.net/tools/yaptestfe">Yaptest Frontend</a> is a small web application which allows you to <i>view</i> data in the backend database used by <a href="http://pentestmonkey.net/projects/yaptest/yaptest-overview/">Yaptest</a>.
+
+<h2>What doesn't YaptestFE do?</h2>
+
+It won't allow you to launch a pentest - you still need to use the command line for that.  This frontend's purely used for <i>viewing</i> information collected during a test.<p>
+
+It won't allow you to view any test information that isn't in the backend database (e.g. the raw output of nmap).
+
+<h2>Is YaptestFE secure?</h2>
+
+Hopefully!  By default the web interface is bound to loopback (127.0.0.1) only.  However, no authentication is currently implemented.  You therefore want to make sure that you trust everyone that can access the web server on the loopback address.
+
+<h2>Will YaptestFE talk to any Version of the Yaptest Backend?</h2>
+
+No.  Version <%=h @yaptestfe_version %> is designed to work with Yaptest version 0.1.5.  Each time there is a schema change to the Yaptest, YaptestFE will need to be updated.
+
+<h1>Working with Tables</h1>
+
+<h2>Filtering</h2>
+
+<p>The little <%= image_tag("filter.png", :align => 'absmiddle') %> icon is a funnel.  Clicking it allows you to select only a subset of results from a table (e.g. a certain type of issue, a certain port, etc).  After you've clicked it, a different icon will appear <%= image_tag("filterx.png", :align => 'absmiddle') %> next to the column heading.  Use the <%= image_tag("filterx.png", :align => 'absmiddle') %> icon to cancel the filtering.</p>
+
+<p>You can filter on more than one column at once, but can't filter on the same column more than once (e.g. you can say: port 23 OR port 80).  There is currenlty no way to do "LIKE" queries or "greater/less than" queries.  You're restricted to "equals" in this v<%=h @yaptestfe_version %> release.</p>
+
+<p>When viewing details for a particular host (i.e. after you've click on an IP address), you can't filter.  This may be supported in a future release.  You can sort, though.</p>
+
+<h2>Sorting</h2>
+
+Click the column heading to sort by a column.  Click it again to sort in reverse order.  The little arrows <%= image_tag("sort_asc.png", :align => 'absmiddle') %>, <%= image_tag("sort_desc.png", :align => 'absmiddle') %> tell you which order the column is currently sorted in.
+
+You can only sort by one column at once.
+
+<h2>Test Areas</h2>
+
+You can filter out results pertaining to a particular test area in two ways:
+<OL>
+<LI>Use the Drop Down box <%= image_tag("dropdown.png", :align => 'absmiddle') %> at the top of the screen to select the test area you're interested in</LI>
+<LI>Use the filter icon <%= image_tag("filter.png", :align => 'absmiddle') %> in the "Test Areas" column</LI>
+</OL>
+
+The Test Area you're currently filtering on is stored in your session, so when you move to a different table (e.g. Issues, Hosts) results will continue to be filtered by Test Area.
+</div>
