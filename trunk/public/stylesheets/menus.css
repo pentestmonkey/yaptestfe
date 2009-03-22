@@ -1,0 +1,224 @@
+table.baretab tbody tr td {
+	vertical-align: middle;
+	border-style: none;
+	text-align: center;
+	padding-top: 0pt;
+	padding-right: 0pt;
+	padding-bottom: 0pt;
+	padding-left: 0pt;
+}
+
+table.baretab {
+	height: 10px;
+	vertical-align: middle;
+	border-style: none;
+	margin: 0;
+}
+
+table.baretab tbody tr:hover td, tr:hover td a
+{
+	background-color: transparent;
+	background-image: none;
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	color: black;
+}
+
+table.baretab tbody tr:hover td a
+{
+	background-color: transparent;
+	background-image: none;
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	color: blue;
+}
+
+table.headertab tbody tr td {
+	vertical-align: top;
+	border-style: none;
+	text-align: left;
+	padding-top: 0pt;
+	padding-right: 20px;
+	padding-bottom: 0pt;
+	padding-left: 0pt;
+}
+
+table.headertab {
+	height: 10px;
+	vertical-align: middle;
+	border-style: none;
+	margin: 0px;
+}
+
+table.headertab tbody tr:hover td, tr:hover td a
+{
+	background-color: transparent;
+	background-image: none;
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	color: black;
+}
+
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin: 0;
+	font-size: 80%;
+	font-weight: none;
+	background: #FFF;
+	}
+
+a {
+	color: blue;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+	/* font: bold 24px Verdana, Arial, Helvetica, sans-serif; */
+	font: bold 24px Georgia, Arial, Helvetica, serif;
+	color: #000;
+	margin: 0px;
+	font-style: italic;
+	padding: 0px 0px 0px 0px;
+}
+
+h2 {
+	font: bold 14px Verdana, Arial, Helvetica, sans-serif;
+	color: #000;
+	margin: 0px;
+	padding: 0px 0px 0px 15px;
+}
+
+ul, li, ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	}
+
+img {
+    border: none;
+} 
+
+#help h1 {
+	margin-top: 20px;
+}
+
+#help h2 {
+	margin-top: 10px;
+	padding-left: 0;
+}
+
+#help ul, li, ol {
+	list-style-type: decimal;
+	list-style-position: inside;
+}
+
+/*- Menu 8--------------------------- */
+	/*
+	width: 130px;
+	margin: 60px 10px 10px 10px;
+*/
+#menu8 {
+	width: 130px;
+	margin: 10px;
+	margin-top: 16px;
+	margin-bottom: 0px;
+	margin-right: 80px;
+	border-style: solid;
+	border-color: #656556;
+	border-size: 1px;
+	border-width: 1px;
+	}
+	
+#menu8 li a {
+	list-style: none;
+	margin: 0px;
+  	voice-family: "\"}\""; 
+  	voice-family: inherit;
+  	height: 16px;
+	text-decoration: none;
+	}	
+	
+#menu8 li a:link, #menu8 li a:hover, #menu8 li a:visited {
+	list-style: none;
+	margin: 0px;
+	display: block;
+	font-weight: bold;
+	padding: 4px 0px 4px 10px;
+	}
+	
+#menu8 li a:link, #menu8 li a:visited {
+	color: #656556;
+	background:  url(/images/menu8.gif);
+	}
+	
+#menu8 li a:hover {
+	color: #474739;
+	background:  url(/images/menu8.gif) 0 -36px;
+	}
+
+#menu8 li.selected a {
+	color: #474739;
+	background:  url(/images/menu8.gif) 0 -36px;
+      }
+	
+/*- Menu Tabs J--------------------------- */
+
+    #tabsJ {
+      float:left;
+      width:100%;
+      background: white;
+      font-size:93%;
+      padding:23px 0 0 0;
+      line-height:normal;
+	  border-bottom:1px solid #24618E;
+      }
+    #tabsJ ul {
+	  margin:0;
+	  padding:0px 10px 10px 20px;
+	  list-style:none;
+      }
+    #tabsJ li {
+      font: bold 8px Georgia, Arial, Helvetica, serif;
+      display:inline;
+      margin:0;
+      padding:0;
+      }
+    #tabsJ a {
+      float:left;
+      background:url("/images/tableftJ.gif") no-repeat left top;
+      margin:0;
+      padding:0 0 0 5px;
+      text-decoration:none;
+      }
+    #tabsJ li.selected a{ /*selected main tab style */
+      /* background-image: url(media/shadeactive.gif); */
+      background-position:0% -42px;
+    }
+    #tabsJ li.selected a span{ /*selected main tab style */
+      /* background-image: url(media/shadeactive.gif); */
+      background-position:100% -42px;
+       color:#FFF; 
+    }
+    #tabsJ a span {
+      float:left;
+      display:block;
+      background:url("/images/tabrightJ.gif") no-repeat right top;
+      padding:5px 15px 4px 6px;
+/*      color:#24618E;*/
+	 color: #474739; /* tab font colour */
+      }
+    /* Commented Backslash Hack hides rule from IE5-Mac \*/
+    #tabsJ a span {float:none;}
+    /* End IE5-Mac hack */
+    #tabsJ a:hover span {
+       color:#FFF; 
+      }
+    #tabsJ a:hover {
+      background-position:0% -42px;
+      }
+    #tabsJ a:hover span {
+      background-position:100% -42px;
+      }

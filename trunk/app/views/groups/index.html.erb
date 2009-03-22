@@ -1,0 +1,81 @@
+<% # @page_title="Groups" %>
+<% @mselect_groups=1 %>
+<% @table = @groups %>
+<% @action = "index" %>
+<% @cont = "groups" %>
+
+<%= render :partial => 'layouts/page_count' %>
+
+<table>
+<thead>
+  <tr>
+    <th>
+      <%= sort_link("Test Area", "session_test_area") %>
+      <%= filterx_icon("Remove filter on #{session[:test_area]}", session[:test_area], :test_area, {:controller => 'test_areas', :action => 'set', :id => 'all'}) %>
+    </th>
+
+    <th><%= sort_link("Group IP", "group_ip") %>
+      <%= filterx_icon("Remove filter on #{@url_params[:group_ip_v]}", @url_params[:group_ip_v], :group_ip_v, {:controller => @cont}) %>
+    </th>
+
+    <th><%= sort_link("Group Name", "group_name") %>
+      <%= filterx_icon("Remove filter on #{@url_params[:group_name_v]}", @url_params[:group_name_v], :group_name_v, {:controller => @cont}) %>
+    </th>
+
+    <th><%= sort_link("Member IP", "member_name") %>
+      <%= filterx_icon("Remove filter on #{@url_params[:member_ip_v]}", @url_params[:member_ip_v], :member_ip_v, {:controller => @cont}) %>
+    </th>
+
+    <th><%= sort_link("Member Domain", "member_domain") %>
+      <%= filterx_icon("Remove filter on #{@url_params[:member_domain_v]}", @url_params[:member_domain_v], :member_domain_v, {:controller => @cont}) %>
+    </th>
+
+    <th><%= sort_link("Member Name", "member_name") %>
+      <%= filterx_icon("Remove filter on #{@url_params[:member_name_v]}", @url_params[:member_name_v], :member_name_v, {:controller => @cont}) %>
+    </th>
+
+  </tr>
+</thead>
+
+<tbody>
+<%
+odd_or_even = 0
+for group in @groups
+    odd_or_even = 1 - odd_or_even
+%>
+  <tr class="odd<%=h odd_or_even %>">
+    <td><%=h group.group_test_area_name %></td>
+    <td>
+      <%= link_to_host(group.group_ip, {:controller => 'hosts', :action => 'showgroups', :id => group.group_host_id}) %>
+      <%= filter_icon("Show only #{group.group_ip}", @url_params[:group_ip_v], {:controller => 'groups', :group_ip_v => group.group_ip}) %>
+    </td>
+    <td>
+      <%= link_to group.group_name, {:controller => 'hosts', :action => 'showgroups', :id => group.group_host_id} %>
+      <%= filter_icon("Show only #{group.group_name}", @url_params[:group_name_v], {:controller => 'groups', :group_name_v => group.group_name}) %>
+    </td>
+    <% if not group.member_ip.nil? %>
+      <td>
+        <%= link_to group.member_ip, {:controller => 'hosts', :action => 'showgroups', :id => group.member_host_id} %>
+        <%= filter_icon("Show only #{group.member_ip}", @url_params[:member_ip_v], {:controller => 'groups', :member_ip_v => group.member_ip}) %>
+      </td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <td>
+    <% if not group.member_domain.nil? %>
+       <%=h group.member_domain %>
+       <%= filter_icon("Show only #{group.member_domain}", @url_params[:member_domain_v], {:controller => 'groups', :member_domain_v => group.member_domain}) %>
+    <% end %>
+    </td>
+    <td>
+    <% if not group.member_name.nil? %>
+       <%=h group.member_name %>
+       <%= filter_icon("Show only #{group.member_name}", @url_params[:member_name_v], {:controller => 'groups', :member_name_v => group.member_name}) %>
+    <% end %>
+    </td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<%= render :partial => 'layouts/page_count' %>
