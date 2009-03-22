@@ -62,4 +62,4 @@ ENV["YAPTESTFE_DBPASS"] = OPTIONS[:password]
 ENV["YAPTESTFE_DBNAME"] = OPTIONS[:dbname]
 ENV["YAPTESTFE_DBTYPE"] = OPTIONS[:type]
 
-system("script/server -e production -b #{OPTIONS[:webip]} -p #{OPTIONS[:webport]}")
+system("script/server -e development -b #{OPTIONS[:webip]} -p #{OPTIONS[:webport]}")

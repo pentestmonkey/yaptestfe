@@ -37,6 +37,14 @@ class IcmpsController < ApplicationController
       end
    end
 
+   if not params[:host_id_v].nil?
+     @host_menu = 1
+     @host = Host.find_by_host_id(params[:host_id_v])
+     @page_title="ICMP Info #{@host.ip_address} in area #{@host.test_area_name}"
+     where[:host_id] = params[:host_id_v]
+     @url_params[:host_id_v] = params[:host_id_v]
+   end
+
    if not params[:type_v].nil?
      where[:icmp_name] = params[:type_v]
      @url_params[:type_v] = params[:type_v]

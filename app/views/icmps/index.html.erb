@@ -4,6 +4,13 @@
 <% @action = "index" %>
 <% @cont = "icmps" %>
 
+
+<%
+if ! @url_params[:host_id_v].nil?
+  @select_icmp = 1
+end
+%>
+
 <%= render :partial => 'layouts/page_count' %>
 
 <table>
@@ -36,7 +43,7 @@ for icmp in @icmps
        <%= filter_icon("Show only #{icmp.test_area_name}", session[:test_area], {:controller => 'test_areas', :action => 'set', :id => icmp.test_area_id}) %>
     </td>
 
-    <td><%= link_to_host(icmp.host.ip_address, {:controller => 'hosts', :action => 'showports', :id => icmp.host.id}) %></td>
+    <td><%= link_to_host(icmp.host.ip_address, {:controller => 'icmps', :host_id_v => icmp.host.id}) %></td>
     <td>
        <%=h icmp.icmp_name%>
        <%= filter_icon("Show only #{icmp.icmp_name}", @url_params[:type_v], {:controller => 'icmps', :type_v => icmp.icmp_name}) %>

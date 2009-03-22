@@ -504,6 +504,15 @@ class HostsController < ApplicationController
       format.xml  { render :xml => @hostinfo }
     end
   end
+  def showopenvas
+    @openvasreport = HostInfo.find(:all, :conditions => { :host_id => params[:id], :key => 'openvas_html_report' })
+    @host = Host.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @hostinfo }
+    end
+  end
 end
 
 

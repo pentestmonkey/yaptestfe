@@ -1,8 +1,15 @@
 <% # @page_title="Issues" %>
-<% @mselect_issues=1 %>
+<% @select_issues = 1 %>
 <% @table = @issues %>
 <% @action = "index" %>
 <% @cont = "issues" %>
+
+
+<%
+if @url_params[:host_id_v].nil?
+  @mselect_issues = 1
+end
+%>
 
 <%= render :partial => 'layouts/page_count' %>
 

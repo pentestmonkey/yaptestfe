@@ -193,6 +193,13 @@ img {
       padding:0 0 0 5px;
       text-decoration:none;
       }
+    #tabsJ a.arrow {
+      float:left;
+      background: white;
+      margin:0;
+      padding:0 0 0 5px;
+      text-decoration:none;
+      }
     #tabsJ li.selected a{ /*selected main tab style */
       /* background-image: url(media/shadeactive.gif); */
       background-position:0% -42px;
@@ -206,7 +213,7 @@ img {
       float:left;
       display:block;
       background:url("/images/tabrightJ.gif") no-repeat right top;
-      padding:5px 15px 4px 6px;
+      padding:5px 12px 4px 6px;
 /*      color:#24618E;*/
 	 color: #474739; /* tab font colour */
       }

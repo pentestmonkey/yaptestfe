@@ -1,8 +1,15 @@
 <% # @page_title="Port Information" %>
-<% @mselect_portinfo=1 %>
 <% @table = @port_infos %>
+<% @select_portinfo = 1 %>
 <% @action = "index" %>
 <% @cont = "port_infos" %>
+
+
+<%
+if @url_params[:host_id_v].nil?
+  @mselect_portinfo=1
+end
+%>
 
 <%= render :partial => 'layouts/page_count' %>
 

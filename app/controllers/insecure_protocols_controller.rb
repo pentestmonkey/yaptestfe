@@ -51,6 +51,9 @@ class InsecureProtocolsController < ApplicationController
    end
 
    if not params[:host_id_v].nil?
+     @host_menu = 1
+     @host = InsecureProtocol.find_by_host_id(params[:host_id_v])
+     @page_title="Insecure Protocols for #{@host.ip_address} in area #{@host.test_area_name}"
      where[:host_id] = params[:host_id_v]
      @url_params[:host_id_v] = params[:host_id_v]
    end
