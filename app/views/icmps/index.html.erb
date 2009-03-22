@@ -1,0 +1,49 @@
+<% # @page_title="ICMP" %>
+<% @mselect_icmp=1 %>
+<% @table = @icmps %>
+<% @action = "index" %>
+<% @cont = "icmps" %>
+
+<%= render :partial => 'layouts/page_count' %>
+
+<table>
+<thead>
+  <tr>
+    <th scope="col">
+      <%= sort_link("Test Area", "session_test_area") %>
+      <%= filterx_icon("Remove filter on #{session[:test_area]}", session[:test_area], :test_area, {:controller => 'test_areas', :action => 'set', :id => 'all'}) %>
+    </th>
+
+    <th scope="col"><%= sort_link("Host", "ip_address") %>
+       <%= filterx_icon("Remove filter on host", @url_params[:host_id_v], :host_id_v, {:controller => @cont}) %>
+    </th>
+
+    <th scope="col"><%= sort_link("ICMP Response", "icmp_name") %>
+       <%= filterx_icon("Remove filter on type", @url_params[:type_v], :type_v, {:controller => @cont}) %>
+    </th>
+  </tr>
+</thead>
+
+<tbody>
+<%
+odd_or_even = 0
+for icmp in @icmps
+    odd_or_even = 1 - odd_or_even
+%>
+  <tr class="odd<%=h odd_or_even %>">
+    <td>
+       <%=h icmp.test_area_name %>
+       <%= filter_icon("Show only #{icmp.test_area_name}", session[:test_area], {:controller => 'test_areas', :action => 'set', :id => icmp.test_area_id}) %>
+    </td>
+
+    <td><%= link_to_host(icmp.host.ip_address, {:controller => 'hosts', :action => 'showports', :id => icmp.host.id}) %></td>
+    <td>
+       <%=h icmp.icmp_name%>
+       <%= filter_icon("Show only #{icmp.icmp_name}", @url_params[:type_v], {:controller => 'icmps', :type_v => icmp.icmp_name}) %>
+    </td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<%= render :partial => 'layouts/page_count' %>

@@ -1,0 +1,123 @@
+table {
+	width: 650px;
+	/* border:1px solid #000000; */
+	border:0px none;
+	margin: 0px;
+	border-spacing: 0px; }
+
+table a, table, tbody, tfoot, tr, th, td {
+	/* font-family: Arial, Helvetica, sans-serif; */
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+
+}
+
+table caption {
+	font-size: 1.8em;
+	text-align: left;
+	text-indent: 100px;
+	background: url(/images/bg_caption.gif) left top;
+	height: 40px;
+	color: #FFFFFF;
+	border:0px none;
+	/* border:1px solid #000000; */ }
+
+thead a:hover {
+	text-decoration: underline;
+}
+
+thead a {
+	background-repeat: repeat;
+	text-decoration: none;
+	/* background: url(/images/bg_th.gif) left; */
+	height: 21px;
+	color: #474739;
+	font-size: 13px;
+	/* font-family: Arial; */
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	padding: 0px 0px;
+	margin: 20px 0px 0px;
+	text-align: left; }
+
+thead th {
+	background-repeat: repeat;
+	white-space: nowrap;
+	background: url(/images/menu8-no-arrow.gif) left;
+	background-position:20% -42px;
+	background-color: #b3b3a4;
+	height: 21px;
+	color: #474739;
+	font-size: 13px;
+	/* font-family: Arial; */
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	padding: 0px 7px;
+	margin: 20px 0px 0px;
+	text-align: left; }
+
+tbody tr {	background: #ffffff; }
+
+tbody tr.odd1 {	background: #f0f0f0; }
+
+tbody th {
+	background: url(/images/arrow_white.gif) left center no-repeat;
+	background-position: 5px;
+	padding-left: 40px !important; }
+
+tbody tr.odd1 th {
+	background: url(/images/arrow_grey.gif) left center no-repeat;
+	background-position: 5px;
+	padding-left: 40px !important; }
+
+tbody th, tbody td {
+	font-size: 11px;
+	line-height: 0.9em;
+	/* font-family: Arial, Helvetica, sans-serif; */
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
+	padding: 5px 7px;
+	white-space: nowrap;
+	/* border-bottom: 1px solid #800000; */
+	text-align: left; }
+
+tbody a {
+	color: blue;
+	font-weight: none;
+	text-decoration: none; }
+
+tbody a:hover {
+/*	color: #000000; */
+	text-decoration: underline; }
+
+tbody tr:hover th {
+	/* background: #888888 url(/images/arrow_red.gif) left center no-repeat */;
+	background: #888888;
+	background-position: 5px;
+	color: #ffffff; }
+
+tbody tr.odd1:hover th {
+	/* background: #888888 url(/images/arrow_black.gif) left center no-repeat */ ;
+	background: #888888;
+	background-position: 5px;
+	color: #ffffff; }
+
+tbody tr:hover th a, tr.odd1:hover th a	{
+		 color: #ffffff; }
+
+tbody tr:hover td, tr:hover td a, tr.odd1:hover td, tr.odd1:hover td a {
+	/* background: #800000; */
+	/* border:0px none; */
+	background: #888888; /* bg highlight colour */
+	color: #ffffff;	 } /* text colour */
+
+tbody tr.odd1:hover td, tr.odd1:hover td a{
+	/* background: #000000; */
+	background: #888888; /* bg highlight colour */
+	color: #ffffff;	 }
+
+tfoot th, tfoot td {
+	background: #ffffff url(/images/bg_footer.gif) repeat-x bottom;
+	font-size: .1.0em;
+	color: #ffffff;
+	height: 21px;
+	}

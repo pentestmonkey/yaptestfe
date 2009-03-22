@@ -1,0 +1,15 @@
+<h1>Database Connection error!</h1>
+
+The Yaptest Frontend couldn't connect to the backend database with the connection parameters supplied.<p>
+
+The paramaters used were:
+<pre>
+Host: <%=h ENV['YAPTESTFE_DBIP'] %>
+Port: <%=h ENV['YAPTESTFE_DBPORT'] %>
+Username: <%=h ENV['YAPTESTFE_DBUSER'] %>
+Password: <%=h ENV['YAPTESTFE_DBPASS'] %>
+Database: <%=h ENV['YAPTESTFE_DBNAME'] %>
+Type: <%=h ENV['YAPTESTFE_DBTYPE'] %>
+</pre>
+
+You can specify different connection parameters on the command line when you start yaptestfe.rb.  Run "yaptestfe.rb -h" for help.

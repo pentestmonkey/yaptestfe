@@ -1,0 +1,67 @@
+<% @page_title="Groups on #{@host.ip_address} in area #{@host.test_area_name}" %>
+<% @host_menu=1 %>
+<% @select_groups=1 %>
+<% @table = @groups %>
+<% @action = "showgroups" %>
+<% @cont = "hosts" %>
+<% @url_params = {} %>
+
+<%= render :partial => 'layouts/page_count' %>
+
+<table>
+<thead>
+  <tr>
+    <th>Group IP
+      <%= filterx_icon("Remove filter on #{@url_params[:group_ip_v]}", @url_params[:group_ip_v], :group_ip_v, {:controller => @cont}) %>
+    </th>
+
+    <th>Group Name
+      <%= filterx_icon("Remove filter on #{@url_params[:group_name_v]}", @url_params[:group_name_v], :group_name_v, {:controller => @cont}) %>
+    </th>
+
+    <th>Member IP
+      <%= filterx_icon("Remove filter on #{@url_params[:member_ip_v]}", @url_params[:member_ip_v], :member_ip_v, {:controller => @cont}) %>
+    </th>
+
+    <th>Member Domain
+      <%= filterx_icon("Remove filter on #{@url_params[:member_domain_v]}", @url_params[:member_domain_v], :member_domain_v, {:controller => @cont}) %>
+    </th>
+
+    <th>Member Name
+      <%= filterx_icon("Remove filter on #{@url_params[:member_name_v]}", @url_params[:member_name_v], :member_name_v, {:controller => @cont}) %>
+    </th>
+
+  </tr>
+</thead>
+
+<tbody>
+<%
+odd_or_even = 0
+for group in @groups
+    odd_or_even = 1 - odd_or_even
+%>
+  <tr class="odd<%=h odd_or_even %>">
+    <td>
+      <%= link_to group.group_ip, {:controller => 'hosts', :action => 'showgroups', :id => group.group_host_id} %>
+      <%= filter_icon("Show only #{group.group_ip}", @url_params[:group_ip_v], {:controller => 'groups', :group_ip_v => group.group_ip}) %>
+    </td>
+    <td>
+      <%= group.group_name %>
+      <%= filter_icon("Show only #{group.group_name}", @url_params[:group_name_v], {:controller => 'groups', :group_name_v => group.group_name}) %>
+    </td>
+    <% if not group.member_ip.nil? %>
+      <td>
+        <%= link_to group.member_ip, {:controller => 'hosts', :action => 'showgroups', :id => group.member_host_id} %>
+        <%= filter_icon("Show only #{group.member_ip}", @url_params[:member_ip_v], {:controller => 'groups', :member_ip_v => group.member_ip}) %>
+      </td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <td><%=h group.member_domain %></td>
+    <td><%=h group.member_name %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<%= render :partial => 'layouts/page_count' %>

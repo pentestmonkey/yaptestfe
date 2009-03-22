@@ -1,0 +1,2 @@
+module HostsToMacAddressesHelper
+end
