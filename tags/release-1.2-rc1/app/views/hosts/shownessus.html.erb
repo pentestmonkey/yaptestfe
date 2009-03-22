@@ -1,0 +1,11 @@
+<% @page_title="Nessus report for #{@host.ip_address} in area #{@host.test_area_name}" %>
+<% @host_menu=1 %>
+<% @select_nessus=1 %>
+<% @table = @nessus %>
+<% @action = "shownessus" %>
+<% @cont = "hosts" %>
+<% @url_params = {} %>
+
+<% for n in @nessusreport %>
+<%= n.value %>
+<% end %>

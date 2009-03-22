@@ -1,0 +1,40 @@
+
+<% 
+if @url_params.nil?
+  @url_params = {}
+end
+%>
+
+<% @rendering_table = 1 %>
+
+<table border=0 class="baretab">
+  <tr>
+    <td width=90>
+       <%= link_to image_tag("first.png", :align => 'absmiddle'), {:controller => @cont, :action => @action, :page => 1, :sort_by => @sort_by, :sort_dir => @sort_dir}.merge(@url_params) if @table.prev? %>
+        <%= link_to "First Page", {:controller => @cont, :action => @action, :page => 1, :sort_by => @sort_by, :sort_dir => @sort_dir}.merge(@url_params) if @table.prev? %>
+    </td>
+    <td width=110>
+       <%= link_to image_tag("prev.png", :align => 'absmiddle'), {:controller => @cont, :action => @action, :page => @table.prev.number, :sort_by => @sort_by, :sort_dir => @sort_dir}.merge(@url_params) if @table.prev? %>
+       <%= link_to "Previous Page", {:controller => @cont, :action => @action, :page => @table.prev.number, :sort_by => @sort_by, :sort_dir => @sort_dir}.merge(@url_params) if @table.prev? %>
+    </td>
+    <td>
+       <%=h @record_count %> Records Total | Page <%=h @table.number %> of <% if @table.number_of_pages == 0 %>1<% else %><%= @table.number_of_pages %><% end %><%= image_tag("blank.png", :align => 'absmiddle') %>
+    </td>
+    <td width=40>
+    </td>
+    <td width=80>
+       <%= link_to "Next Page", {:controller => @cont, :action => @action, :page => @table.next.number}.merge(@url_params) if @table.next? %>
+       <%= link_to image_tag("next.png", :align => 'absmiddle'), {:controller => @cont, :action => @action, :page => @table.next.number}.merge(@url_params) if @table.next? %>
+    </td>
+    <td width=80>
+      <%= link_to "Last page", {:controller => @cont, :action => @action, :page => @table.number_of_pages, :sort_by => @sort_by, :sort_dir => @sort_dir}.merge(@url_params) if @table.next? %>
+      <%= link_to image_tag("last.png", :align => 'absmiddle'), {:controller => @cont, :action => @action, :page => @table.number_of_pages, :sort_by => @sort_by, :sort_dir => @sort_dir}.merge(@url_params) if @table.next? %>
+    </td>
+  </tr>
+</table>
+
+
+
+
+
+	

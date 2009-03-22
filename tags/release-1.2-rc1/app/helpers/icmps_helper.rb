@@ -1,0 +1,2 @@
+module IcmpsHelper
+end

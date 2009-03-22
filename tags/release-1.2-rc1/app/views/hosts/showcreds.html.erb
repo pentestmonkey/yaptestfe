@@ -1,0 +1,77 @@
+<% @page_title="Credentials for #{@host.ip_address} in area #{@host.test_area_name}" %>
+<% @host_menu=1 %>
+<% @select_creds=1 %>
+<% @table = @credentials %>
+<% @action = "showcreds" %>
+<% @cont = "hosts" %>
+<% @url_params = {} %>
+
+<%= render :partial => 'layouts/page_count' %>
+
+<table>
+<thead>
+  <tr>
+    <th scope="col"><%= sort_link("Credential Type", "credential_type_name") %>
+      <%= filterx_icon("Remove filter on port #{@url_params[:type_v]}", @url_params[:type_v], :type_v, {:controller => @cont}) %>
+    </th>
+
+    <th scope="col"><%= sort_link("Domain", "domain") %>
+      <%= filterx_icon("Remove filter on host", @url_params[:domain_v], :domain_v, {:controller => @cont}) %>
+    </th>
+
+    <th scope="col"><%= sort_link("Port", "port") %>
+      <%= filterx_icon("Remove filter on port #{@url_params[:port_v]}", @url_params[:port_v], :port_v, {:controller => @cont}) %>
+    </th>
+
+    <th scope="col"><%= sort_link("Username", "username") %>
+      <%= filterx_icon("Remove filter on port #{@url_params[:username_v]}", @url_params[:username_v], :username_v, {:controller => @cont}) %>
+    </th>
+
+     <th scope="col"><%= sort_link("Password", "password") %>
+      <%= filterx_icon("Remove filter on port #{@url_params[:password_v]}", @url_params[:password_v], :password_v, {:controller => @cont}) %>
+    </th>
+  </tr>
+</thead>
+
+<tbody>
+<%
+odd_or_even = 0
+for credential in @credentials
+    odd_or_even = 1 - odd_or_even
+%>
+  <tr class="odd<%=h odd_or_even %>">
+    <td><%=link_to credential.credential_type_name, {:controller => 'credentials', :credential_type_name_v => credential.credential_type_name }, {'onmouseover' => "Tip('Show hosts with #{credential.credential_type_name} creds')", 'onmouseout' => "UnTip()"} %></td>
+    <td><%=h credential.domain %></td>
+
+    <% if credential.port_id? then %>
+      <td><%=h credential.port.port %>/<%=h credential.transport_protocol_name %></td>
+    <% else %>
+      <td><i>N/A</i></td>
+    <% end %>
+
+    <% if credential.username? then %>
+      <td><%=link_to credential.username, {:controller => 'credentials', :username_v => credential.username }, {'onmouseover' => "Tip('Show hosts with username #{credential.username}')", 'onmouseout' => "UnTip()"} %></td>
+    <% else %>
+      <td><i>N/A</i></td>
+    <% end %>
+
+    <% if credential.password.nil? then %>
+      <td><i>unknown</i></td>
+    <% else %>
+      <% if credential.password.empty? then %>
+        <td><i>
+        <%=link_to 'Blank!', {:controller => 'credentials', :password_v => credential.password }, {'onmouseover' => "Tip('Show hosts with password #{credential.password}')", 'onmouseout' => "UnTip()"} %>
+	</i></td>
+      <% else %>
+        <td><%=link_to credential.password, {:controller => 'credentials', :password_v => credential.password }, {'onmouseover' => "Tip('Show hosts with password #{credential.password}')", 'onmouseout' => "UnTip()"} %></td>
+      <% end %>
+    <% end %>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<%= render :partial => 'layouts/page_count' %>
+
+<i>Note: Apparently duplicate entries in the table are most commonly caused by each username <p>
+having a LANMAN and NTLM hash in the backend.</i>

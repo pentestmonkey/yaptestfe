@@ -1,0 +1,39 @@
+<% # @page_title="Port Summary" %>
+<% @mselect_portsummary=1 %>
+<% @table = @port_summarys %>
+<% @action = "index" %>
+<% @cont = "port_summarys" %>
+
+<%= render :partial => 'layouts/page_count' %>
+
+<table>
+<thead>
+  <tr>
+    <th scope="col"><%= sort_link("Count", "count") %></th>
+    <th scope="col"><%= sort_link("Port", "port") %></th>
+    <th scope="col"><%= sort_link("Trans Proto", "transport_protocol") %>
+      <%= filterx_icon("Remove filter on #{@url_params[:trans_v]}", @url_params[:trans_v], :trans_v, {:controller => @cont}) %>
+    </th>
+
+  </tr>
+</thead>
+
+<tbody>
+<%
+odd_or_even = 0
+for port_summary in @port_summarys
+    odd_or_even = 1 - odd_or_even
+%>
+  <tr class="odd<%=h odd_or_even %>">
+    <td><%=h port_summary.count %></td>
+    <td><%= link_to port_summary.port, {:controller => 'nmap_infos', :port_v => port_summary.port}, {'onmouseover' => "Tip('Show hosts with port #{port_summary.port} open')", 'onmouseout' => "UnTip()"} %></td>
+    <td>
+       <%=h port_summary.transport_protocol %>
+       <%= filter_icon("Show only #{port_summary.transport_protocol} ports", @url_params[:trans_v], {:controller => 'port_summarys', :trans_v => port_summary.transport_protocol}) %>
+    </td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<%= render :partial => 'layouts/page_count' %>

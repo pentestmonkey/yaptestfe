@@ -1,0 +1,39 @@
+<% @page_title="ICMP for #{@host.ip_address} in area #{@host.test_area_name}" %>
+<% @host_menu=1 %>
+<% @select_icmp=1 %>
+<% @table = @icmps %>
+<% @action = "showicmp" %>
+<% @cont = "hosts" %>
+<% @url_params = {} %>
+
+<%= render :partial => 'layouts/page_count' %>
+
+<table>
+<thead>
+  <tr>
+
+    <th scope="col"><%= sort_link("ICMP Response", "icmp_name") %>
+       <%= filterx_icon("Remove filter on type", @url_params[:type_v], :type_v, {:controller => @cont}) %>
+    </th>
+  </tr>
+</thead>
+
+<tbody>
+<%
+odd_or_even = 0
+if @icmps.nil? then
+%>
+No ports found
+<% else
+	for icmp in @icmps
+	    odd_or_even = 1 - odd_or_even
+	%>
+	  <tr class="odd<%=h odd_or_even %>">
+	    <td><%=link_to icmp.icmp_name, {:controller => 'icmps', :type_v => icmp.icmp_name }, {'onmouseover' => "Tip('Show hosts with #{icmp.icmp_name}')", 'onmouseout' => "UnTip()"} %></td>
+	  </tr>
+	<% end %>
+<% end %>
+</tbody>
+</table>
+
+<%= render :partial => 'layouts/page_count' %>

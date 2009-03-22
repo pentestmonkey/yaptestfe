@@ -1,0 +1,2 @@
+module TestAreasHelper
+end

@@ -1,0 +1,43 @@
+<% @page_title="Open Ports on #{@host.ip_address} in area #{@host.test_area_name}" %>
+<% @host_menu=1 %>
+<% @select_ports=1 %>
+<% @table = @ports %>
+<% @action = "showports" %>
+<% @cont = "hosts" %>
+<% @url_params = {} %>
+
+<%= render :partial => 'layouts/page_count' %>
+
+<table>
+<thead>
+  <tr>
+    <th scope="col"><%= sort_link("Port", "port") %>
+      <%= filterx_icon("Remove filter on port #{@url_params[:port_v]}", @url_params[:port_v], :port_v, {:controller => @cont}) %>
+    </th>
+
+    <th scope="col"><%= sort_link("Trans Proto", "transport_protocol") %>
+      <%= filterx_icon("Remove filter on #{@url_params[:trans_v]}", @url_params[:trans_v], :trans_v, {:controller => @cont}) %>
+    </th>
+  </tr>
+</thead>
+
+<tbody>
+<%
+odd_or_even = 0
+if @ports.nil? then
+%>
+No ports found
+<% else
+	for port in @ports
+	    odd_or_even = 1 - odd_or_even
+	%>
+	  <tr class="odd<%=h odd_or_even %>">
+	    <td><%=link_to port.port, {:controller => 'ports', :port_v => port.port }, {'onmouseover' => "Tip('Show hosts with port #{port.port} open')", 'onmouseout' => "UnTip()"} %></td>
+	    <td><%=h port.transport_protocol %></td>
+	  </tr>
+	<% end %>
+<% end %>
+</tbody>
+</table>
+
+<%= render :partial => 'layouts/page_count' %>
