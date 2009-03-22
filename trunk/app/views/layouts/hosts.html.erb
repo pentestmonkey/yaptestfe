@@ -88,19 +88,133 @@ for ta in @ta
     <tr>
     <td>
 <% if not @host_menu.nil? %>
+<%
+  if session[:test_area].nil?
+    @next_host = Host.find(:first, :conditions => ["ip_address > ?", @host.ip_address], :limit => 1, :order => 'ip_address')
+    @prev_host = Host.find(:first, :conditions => ["ip_address < ?", @host.ip_address], :limit => 1, :order => 'ip_address DESC')
+  else
+    @next_host = Host.find_by_test_area_id(session[:test_area], :conditions => ["ip_address > ?", @host.ip_address], :limit => 1, :order => 'ip_address')
+    @prev_host = Host.find_by_test_area_id(session[:test_area], :conditions => ["ip_address < ?", @host.ip_address], :limit => 1, :order => 'ip_address DESC')
+  end
+  %>
 <div id="tabsJ">
+    <% if ! @prev_host.nil? %>
+    <%
+	url_opts2 = {}
+        if  not @select_openvas.nil?
+                url_opts2[:controller] = "hosts"
+                url_opts2[:action] = @action
+                url_opts2[:id] = @prev_host.id
+        end
+        if  not @select_nessus.nil?
+                url_opts2[:controller] = "hosts"
+                url_opts2[:action] = @action
+                url_opts2[:id] = @prev_host.id
+        end
+        if  not @select_issues.nil?
+                url_opts2[:controller] = "issues"
+                url_opts2[:host_id_v] = @prev_host.id
+        end
+        if  not @select_portinfo.nil?
+                url_opts2[:controller] = "port_infos"
+                url_opts2[:host_id_v] = @prev_host.id
+        end
+        if  not @select_nmapinfo.nil?
+                url_opts2[:controller] = "nmap_infos"
+                url_opts2[:host_id_v] = @prev_host.id
+        end
+        if  not @select_insecprotos.nil?
+                url_opts2[:controller] = "insecure_protocols"
+                url_opts2[:host_id_v] = @prev_host.id
+        end
+        if  not @select_icmp.nil?
+                url_opts2[:controller] = "icmps"
+                url_opts2[:host_id_v] = @prev_host.id
+        end
+        if  not @select_creds.nil?
+                url_opts2[:controller] = "credentials" # broken
+                url_opts2[:host_id_v] = @prev_host.id
+        end
+        if  not @select_groups.nil?
+                url_opts2[:controller] = "groups" # broken
+                url_opts2[:host_id_v] = @prev_host.id
+        end
+        if  not @select_passwordhashes.nil?
+                url_opts2[:controller] = "password_hashs" # broken
+                url_opts2[:host_id_v] = @prev_host.id
+        end
+        if  not @select_hostinfo.nil?
+                url_opts2[:controller] = "host_infos" # broken
+                url_opts2[:host_id_v] = @prev_host.id
+        end
+    %>
+    <%= link_to image_tag("resultset_previous.png", :align => 'absmiddle', :onmouseover => "Tip('Previous Host: #{@prev_host.ip_address}')", :onmouseout => "UnTip()"), url_opts2 ,{ :class => 'arrow'} %>
+    <% end %>
   <ul>
     <li<% if not @select_hostinfo.nil? %> class="selected" <% end %>><a href="/hosts/showhostinfo/<%=h @host.host_id %>"><span>Host Info</span></a><a href="#" title="Link 2"></li>
-    <li<% if not @select_icmp.nil? %> class="selected" <% end %>><a href="/hosts/showicmp/<%=h @host.host_id %>"><span>ICMP</span></a><a href="#" title="Link 2"></li>
+    <li<% if not @select_icmp.nil? %> class="selected" <% end %>><a href="/icmps?host_id_v=<%=h @host.host_id %>"><span>ICMP</span></a><a href="#" title="Link 2"></li>
     <li<% if not @select_nmapinfo.nil? %> class="selected" <% end %>><a href="/nmap_infos?host_id_v=<%=h @host.host_id %>"><span>Ports</span></a></li>
     <li<% if not @select_portinfo.nil? %> class="selected" <% end %>><a href="/port_infos?host_id_v=<%=h @host.host_id %>"><span>Port_info</span></a></li>
 
-    <li<% if not @select_insecprotos.nil? %> class="selected" <% end %>><a href="/hosts/showinsecprotos/<%=h @host.host_id %>"><span>Insec Protos</span></a></li>
+    <li<% if not @select_insecprotos.nil? %> class="selected" <% end %>><a href="/insecure_protocols?host_id_v=<%=h @host.host_id %>"><span>Insec Protos</span></a></li>
     <li<% if not @select_creds.nil? %> class="selected" <% end %>><a href="/hosts/showcreds/<%=h @host.host_id %>"><span>Credentials</span></a></li>
     <li<% if not @select_groups.nil? %> class="selected" <% end %>><a href="/hosts/showgroups/<%=h @host.host_id %>"><span>Groups</span></a></li>
     <li<% if not @select_passwordhashes.nil? %> class="selected" <% end %>><a href="/hosts/showpasswordhashes/<%=h @host.host_id %>"><span>Hashes</span></a></li>
     <li<% if not @select_nessus.nil? %> class="selected" <% end %>><a href="/hosts/shownessus/<%=h @host.host_id %>"><span>Nessus</span></a></li>
+    <li<% if not @select_openvas.nil? %> class="selected" <% end %>><a href="/hosts/showopenvas/<%=h @host.host_id %>"><span>OpenVAS</span></a></li>
     <li<% if not @select_issues.nil? %> class="selected" <% end %>><a href="/issues?host_id_v=<%=h @host.host_id %>"><span>Issues</span></a></li>
+    <%
+    if ! @next_host.nil?
+	url_opts = {}
+        if  not @select_openvas.nil?
+                url_opts[:controller] = "hosts"
+                url_opts[:action] = @action
+                url_opts[:id] = @next_host.id
+        end
+        if  not @select_nessus.nil?
+                url_opts[:controller] = "hosts"
+                url_opts[:action] = @action
+                url_opts[:id] = @next_host.id
+        end
+        if  not @select_issues.nil?
+                url_opts[:controller] = "issues"
+                url_opts[:host_id_v] = @next_host.id
+        end
+        if  not @select_portinfo.nil?
+                url_opts[:controller] = "port_infos"
+                url_opts[:host_id_v] = @next_host.id
+        end
+        if  not @select_nmapinfo.nil?
+                url_opts[:controller] = "nmap_infos"
+                url_opts[:host_id_v] = @next_host.id
+        end
+        if  not @select_insecprotos.nil?
+                url_opts[:controller] = "insecure_protocols"
+                url_opts[:host_id_v] = @next_host.id
+        end
+        if  not @select_icmp.nil?
+                url_opts[:controller] = "icmps"
+                url_opts[:host_id_v] = @next_host.id
+        end
+        if  not @select_creds.nil?
+                url_opts[:controller] = "credentials" # broken
+                url_opts[:host_id_v] = @next_host.id
+        end
+        if  not @select_groups.nil?
+                url_opts[:controller] = "groups" # broken
+                url_opts[:host_id_v] = @next_host.id
+        end
+        if  not @select_passwordhashes.nil?
+                url_opts[:controller] = "password_hashs" # broken
+                url_opts[:host_id_v] = @next_host.id
+        end
+        if  not @select_hostinfo.nil?
+                url_opts[:controller] = "host_infos" # broken
+                url_opts[:host_id_v] = @next_host.id
+        end
+    %>
+    <li><%= link_to image_tag("resultset_next.png", :align => 'absmiddle', :onmouseover => "Tip('Next Host: #{@next_host.ip_address}')", :onmouseout => "UnTip()"), url_opts, { :class => 'arrow' } %></li>
+    <% end %>
   </ul>
 <% end %>
 

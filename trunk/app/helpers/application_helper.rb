@@ -32,7 +32,7 @@ module ApplicationHelper
 		 if port_info.port_info_key == 'nmap_service_name' and port_info.value == 'http'
 		 	webs = PortInfoSsl.find(:all, :conditions => { :port_id => port_info.port_id, :nmap_service_tunnel => 'ssl' } )
 			for web in webs
-			 	if web.value == 'ssl'
+			 	if web.nmap_service_tunnel == 'ssl'
 					return  link_to(image_tag("application_link.png", :align => 'absmiddle'), "https://#{port_info.ip_address}:#{port_info.port.port}", {:onmouseover => "Tip('Open https://#{port_info.ip_address}:#{port_info.port.port} in new window')", :onmouseout => "UnTip()", :target => '_blank'})
 			 	end
 			end

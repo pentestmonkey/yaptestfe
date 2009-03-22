@@ -2,14 +2,14 @@ class HelpController < ApplicationController
   # GET /help
   # GET /help.xml
   def index 
-  @yaptestfe_version="1.1"
+  @yaptestfe_version="1.1-rc4"
     respond_to do |format|
       format.html # index.html.erb
     end
   end
 
   def show
-  @yaptestfe_version="1.1"
+  @yaptestfe_version="1.1-rc4"
     respond_to do |format|
       format.html # show.html.erb
     end

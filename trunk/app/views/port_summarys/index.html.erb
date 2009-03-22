@@ -26,7 +26,7 @@ for port_summary in @port_summarys
 %>
   <tr class="odd<%=h odd_or_even %>">
     <td><%=h port_summary.count %></td>
-    <td><%= link_to port_summary.port, {:controller => 'ports', :port_v => port_summary.port}, {'onmouseover' => "Tip('Show hosts with port #{port_summary.port} open')", 'onmouseout' => "UnTip()"} %></td>
+    <td><%= link_to port_summary.port, {:controller => 'nmap_infos', :port_v => port_summary.port}, {'onmouseover' => "Tip('Show hosts with port #{port_summary.port} open')", 'onmouseout' => "UnTip()"} %></td>
     <td>
        <%=h port_summary.transport_protocol %>
        <%= filter_icon("Show only #{port_summary.transport_protocol} ports", @url_params[:trans_v], {:controller => 'port_summarys', :trans_v => port_summary.transport_protocol}) %>

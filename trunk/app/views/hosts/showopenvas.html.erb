@@ -1,0 +1,11 @@
+<% @page_title="OpenVAS report for #{@host.ip_address} in area #{@host.test_area_name}" %>
+<% @host_menu=1 %>
+<% @select_openvas=1 %>
+<% @table = @openvas %>
+<% @action = "showopenvas" %>
+<% @cont = "hosts" %>
+<% @url_params = {} %>
+
+<% for n in @openvasreport %>
+<%= n.value %>
+<% end %>
