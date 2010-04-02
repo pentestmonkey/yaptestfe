@@ -9,11 +9,14 @@ OPTIONS = {
   :dbname   => nil,
   :webport  => 3000,
   :webip    => "127.0.0.1",
-  :type     => "postgresql"
+  :type     => "postgresql",
+  :wizard   => 0
 }
 
 ARGV.options do |opts|
   script_name = File.basename($0)
+  dir_name = File.dirname($0)
+  Dir.chdir(dir_name)
   opts.banner = "Usage: ruby #{script_name} -d dbname [options]"
 
   opts.separator ""
@@ -24,6 +27,9 @@ ARGV.options do |opts|
   opts.on("-i", "--ip=ip", String,
           "IP address of backend database.",
           "Default: #{OPTIONS[:ip]}") { |v| OPTIONS[:ip] = v }
+  opts.on("-W", "--wizard", String,
+          "Interactive wizard to configure YaptestFE.",
+          "Default: off (use cmd line)") { |v| OPTIONS[:wizard] = v }
   opts.on("-p", "--port=port", Integer,
           "TCP port for backend database.",
           "Default: #{OPTIONS[:port]}") { |v| OPTIONS[:port] = v }
@@ -50,6 +56,54 @@ ARGV.options do |opts|
   opts.parse!
 end
 
+if OPTIONS[:wizard] != 0
+	puts "*** Configuring YaptestFE parameters using Wizard ***"
+	printf "Database name: " % OPTIONS[:dbname]
+	i = STDIN.readline.gsub(/\n/, "")
+	if i =~ /^\s*$/
+		puts "ERROR: Database name can't be blank.  Use \\l in psql to list db names"
+		exit 1
+	end
+	OPTIONS[:dbname] = i
+	
+	printf "Bind Webserver to IP [%s]: " % OPTIONS[:webip]
+	i = STDIN.readline.gsub(/\n/, "")
+	if not i =~ /^\s*$/
+		OPTIONS[:webip] = i
+	end
+	
+	printf "Webserver Port [%s]: " % OPTIONS[:webport]
+	i = STDIN.readline.gsub(/\n/, "")
+	if not i =~ /^\s*$/
+		OPTIONS[:webport] = i
+	end
+	
+	printf "Database username [%s]: " % OPTIONS[:username]
+	i = STDIN.readline.gsub(/\n/, "")
+	if not i =~ /^\s*$/
+		OPTIONS[:username] = i
+	end
+	
+	printf "Database password [%s]: " % OPTIONS[:password]
+	i = STDIN.readline.gsub(/\n/, "")
+	if not i =~ /^\s*$/
+		OPTIONS[:password] = i
+	end
+	
+	printf "Database port [%s]: " % OPTIONS[:port]
+	i = STDIN.readline.gsub(/\n/, "")
+	if not i =~ /^\s*$/
+		OPTIONS[:port] = i
+	end
+	
+	printf "Database IP [%s]: " % OPTIONS[:ip]
+	i = STDIN.readline.gsub(/\n/, "")
+	if not i =~ /^\s*$/
+		OPTIONS[:ip] = i
+	end
+	
+end
+
 if OPTIONS[:dbname].nil?
 	puts "ERROR: Must specify a database name with -d.  Use -h for help."
 	exit 1
@@ -62,4 +116,4 @@ ENV["YAPTESTFE_DBPASS"] = OPTIONS[:password]
 ENV["YAPTESTFE_DBNAME"] = OPTIONS[:dbname]
 ENV["YAPTESTFE_DBTYPE"] = OPTIONS[:type]
 
-system("script/server -e development -b #{OPTIONS[:webip]} -p #{OPTIONS[:webport]}")
+system("script/server -e production -b #{OPTIONS[:webip]} -p #{OPTIONS[:webport]}")
