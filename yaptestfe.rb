@@ -10,7 +10,8 @@ OPTIONS = {
   :webport  => 3000,
   :webip    => "127.0.0.1",
   :type     => "postgresql",
-  :wizard   => 0
+  :wizard   => 0,
+  :launchfirefox => 0
 }
 
 ARGV.options do |opts|
@@ -30,6 +31,9 @@ ARGV.options do |opts|
   opts.on("-W", "--wizard", String,
           "Interactive wizard to configure YaptestFE.",
           "Default: off (use cmd line)") { |v| OPTIONS[:wizard] = v }
+  opts.on("-F", "--firefox", String,
+          "Launch firefox for the newly started YaptestFE instance.",
+          "Default: off") { |v| OPTIONS[:launchfirefox] = v }
   opts.on("-p", "--port=port", Integer,
           "TCP port for backend database.",
           "Default: #{OPTIONS[:port]}") { |v| OPTIONS[:port] = v }
@@ -78,6 +82,12 @@ if OPTIONS[:wizard] != 0
 		OPTIONS[:webport] = i
 	end
 	
+	printf "Launch Firefox? [Y]: "
+	i = STDIN.readline.gsub(/\n/, "")
+	if i =~ /^\s*$/ or i =~ /^y/i
+		OPTIONS[:launchfirefox] = 1
+	end
+	
 	printf "Database username [%s]: " % OPTIONS[:username]
 	i = STDIN.readline.gsub(/\n/, "")
 	if not i =~ /^\s*$/
@@ -116,4 +126,8 @@ ENV["YAPTESTFE_DBPASS"] = OPTIONS[:password]
 ENV["YAPTESTFE_DBNAME"] = OPTIONS[:dbname]
 ENV["YAPTESTFE_DBTYPE"] = OPTIONS[:type]
 
+if OPTIONS[:launchfirefox] != 0
+	puts "Firefox will launch in 6 secs"
+	system("(sleep 6; firefox http://localhost:#{OPTIONS[:webport]}) &");
+end
 system("script/server -e production -b #{OPTIONS[:webip]} -p #{OPTIONS[:webport]}")
