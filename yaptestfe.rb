@@ -68,7 +68,7 @@ if OPTIONS[:wizard] != 0
 		puts "ERROR: Database name can't be blank.  Use \\l in psql to list db names"
 		exit 1
 	end
-	OPTIONS[:dbname] = i
+	OPTIONS[:dbname] = i.downcase
 	
 	printf "Bind Webserver to IP [%s]: " % OPTIONS[:webip]
 	i = STDIN.readline.gsub(/\n/, "")
